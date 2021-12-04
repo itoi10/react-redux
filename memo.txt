@@ -1,0 +1,14 @@
+# パッケージ
+@material-ui/core       // materialUI
+@material-ui/icons
+@material-ui/styles
+connected-react-router  // reduxと一緒にreact-routerを使うのに便利
+firebase                // Firebase
+history                 // router関連。以前どこのURLにいたかなどを記憶
+react-redux             // reactと一緒にreduxを使う
+react-router            // ルーティング
+redux                   // redux
+redux-actions           // reduxでactionを作る時に使える
+redux-logger            // stateの差分などを表示
+redux-thunk             // reduxのなかで非同期処理の完了を待つ
+reselect
