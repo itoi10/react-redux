@@ -4,11 +4,17 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "./assets/reset.css";
 import "./assets/style.css";
+import { Provider } from "react-redux";
+import createStore from "./reducks/store/store";
+
+// storeを作成
+export const store = createStore();
 
 ReactDOM.render(
-  <React.StrictMode>
+  // Providerでラップしてstoreを参照できるようにする
+  <Provider store={store}>
     <App />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById("root")
 );
 
