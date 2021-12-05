@@ -6,14 +6,20 @@ import "./assets/reset.css";
 import "./assets/style.css";
 import { Provider } from "react-redux";
 import createStore from "./reducks/store/store";
+import { ConnectedRouter } from "connected-react-router";
+import * as History from "history";
 
 // storeを作成
-export const store = createStore();
+const history = History.createBrowserHistory();
+export const store = createStore(history);
 
 ReactDOM.render(
   // Providerでラップしてstoreを参照できるようにする
   <Provider store={store}>
-    <App />
+    {/* ブラウザのURLの遷移履歴を管理できるようにする */}
+    <ConnectedRouter history={history}>
+      <App />
+    </ConnectedRouter>
   </Provider>,
   document.getElementById("root")
 );
