@@ -11,4 +11,39 @@ redux                   // redux
 redux-actions           // reduxでactionを作る時に使える
 redux-logger            // stateの差分などを表示
 redux-thunk             // reduxのなかで非同期処理の完了を待つ
-reselect
+reselect                // selectorで使う
+
+
+# re-ducsパターン
+Reduxのディレクトリ構成のことでファイルを管理しやすくなる。Ducksパターンから派生した。
+
+## Ducksパターン以前 (同じ名前のファイルが多くできてactionsを書いているのかreducersを書いているのかなどがわかりにくい)
+actions/
+  - products.js
+  - users.js
+reducers/
+  - products.js
+  - users.js
+
+## Ducksパターン (関連するactionsやreducersを１つのファイルにまとめた。ファイルが肥大化しやすいのがデメリット)
+modules/
+  - products.js
+  - users.js
+
+## re-ducksパターン (関連するディレクトリにactionsやreducersなどのファイルを分ける)
+// メリット actionsとreducersがシンプルになる。ファイルが肥大化しにくくなる。ファイルごとの役割が明確で管理しやすい。
+users/
+  - actions.js    // アプリから受け取ったデータをreducersに渡す
+  - index.js
+  - operation.js  // 複雑な処理を任される(非同期処理の制御). Actionsを呼び出す.
+  - reducers.js   // storeの値を変更する
+  - selectors.js   // storeから特定の値を参照する
+  - types.ts      // TypeScriptで使う。型定義を記述してexport
+
+products/
+  - actions.js
+  - index.js
+  - operation.js
+  - reducers.js
+  - selectors.js
+  - types.ts

@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { push } from "connected-react-router";
+import { signInAction } from "../reducks/users/actions";
 
 const Login: React.FC = () => {
   const dispatch = useDispatch();
@@ -15,7 +16,10 @@ const Login: React.FC = () => {
     <div>
       <h2>ログイン</h2>
       {/* '/'に遷移する */}
-      <button onClick={() => dispatch(push("/"))}>ログインする</button>
+      <button onClick={() => {
+        dispatch(signInAction({uid: "00001", username: "taro" }))
+        dispatch(push("/"))
+      }}>ログインする</button>
     </div>
   );
 };
