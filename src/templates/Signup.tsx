@@ -1,7 +1,11 @@
 import React, { useState, useCallback } from "react";
 import { TextInput } from "../components/UIkit";
+import { useDispatch } from "react-redux";
+import { push } from "connected-react-router";
 
 const SignUp: React.FC = () => {
+  const dispatch = useDispatch();
+
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -84,6 +88,8 @@ const SignUp: React.FC = () => {
         type={"password"}
         onChange={inputConfirmPassword}
       />
+
+      <button onClick={() => dispatch(push("/"))}>ホームへ</button>
     </div>
   );
 };
