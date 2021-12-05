@@ -47,3 +47,10 @@ products/
   - reducers.js
   - selectors.js
   - types.ts
+
+# redux-thunk
+Reduxで非同期処理を制御するライブラリ
+
+通常のActionsはaction objectを受け取る
+ 関数を受け取ることができない
+  async,awaitやPromiseが使えない!

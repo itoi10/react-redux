@@ -2,8 +2,10 @@ import { createStore as reduxCreateStore, combineReducers, applyMiddleware } fro
 import { connectRouter, routerMiddleware } from "connected-react-router";
 import { UsersReducer } from "../users/reducers";
 import * as History from "history";
+import thunk from "redux-thunk";
 
 // history ブラウザがどこのパスにいるのかという情報
+// thunk 非同期処理を待つ
 
 export default function createStore(history: History.History<unknown>) {
   return reduxCreateStore(
@@ -13,6 +15,6 @@ export default function createStore(history: History.History<unknown>) {
       users: UsersReducer,
     }),
     // ミドルウェア設定
-    applyMiddleware(routerMiddleware(history))
+    applyMiddleware(routerMiddleware(history), thunk)
   );
 }
