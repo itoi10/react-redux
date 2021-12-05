@@ -33,6 +33,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "deploy": "yarn build && firebase deploy",
     "lint": "eslint --fix './{src,functions/src}/**/*.{js,jsx,ts,tsx}' && prettier --write './{src,functions/src}/**/*.{js,jsx,ts,tsx}'",
     "eject": "react-scripts eject"
   },
