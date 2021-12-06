@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import { TextInput } from "../components/UIkit";
+import { TextInput, PrimaryButton } from "../components/UIkit";
 import { useDispatch } from "react-redux";
 import { push } from "connected-react-router";
 
@@ -43,7 +43,9 @@ const SignUp: React.FC = () => {
   return (
     <div className="c-section-container">
       <h2 className="u-text__headline u-text-center">アカウント登録</h2>
+
       <div className="module-spacer--medium" />
+
       {/* ユーザー名 */}
       <TextInput
         fullWidth={true}
@@ -89,7 +91,15 @@ const SignUp: React.FC = () => {
         onChange={inputConfirmPassword}
       />
 
-      <button onClick={() => dispatch(push("/"))}>ホームへ</button>
+      <div className="module-spacer--medium" />
+
+      {/* ボタン */}
+      <div className="center">
+        <PrimaryButton
+          label={"アカウントを登録する"}
+          onClick={() => console.log('click!')}
+        />
+      </div>
     </div>
   );
 };
