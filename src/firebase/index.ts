@@ -1,8 +1,8 @@
 import firebase from "firebase/compat/app";
-import "firebase/auth";
-import "firebase/firestore";
-import "firebase/storage";
-import "firebase/functions";
+import "firebase/compat/auth";
+import "firebase/compat/firestore";
+import "firebase/compat/storage";
+import "firebase/compat/functions";
 import { firebaseConfig } from "./config";
 
 // ReactでFirebaseを使う準備

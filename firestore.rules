@@ -1,8 +1,18 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /{document=**} {
-      allow read, write: if false;
+    // usersコレクションのuserIdキーのオブジェクト権限設定
+    match /users/{userId} {
+      // ログインしていたら読込できる
+      allow read: if request.auth.uid != null;
+      // ログインしていなくても作成できる
+      allow create;
+      // ログイン中(自分)のuserIdだったら更新,削除できる
+      allow update: if request.auth.uid == userId;
+      allow delete: if request.auth.uid == userId;
     }
+    // match /{document=**} {
+    //   allow read, write: if false;
+    // }
   }
 }

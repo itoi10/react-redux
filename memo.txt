@@ -54,3 +54,10 @@ Reduxで非同期処理を制御するライブラリ
 通常のActionsはaction objectを受け取る
  関数を受け取ることができない
   async,awaitやPromiseが使えない!
+
+
+# ルールを変更しないとfirestoreを操作できない。
+firestore.rulesで設定
+
+ルールのみ適用するコマンド
+$ firebase deploy --only firestore:rules
