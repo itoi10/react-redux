@@ -1,10 +1,13 @@
+import { UserState } from "./types";
+
 // アプリから受け取ったデータをreducersに渡す
 export const SIGN_IN = "SIGN_IN";
-export const signInAction = (userState: { uid: string; username: string }) => {
+export const signInAction = (userState: { uid: string; username: string; role: string }) => {
   return {
     type: SIGN_IN,
     payload: {
       isSignedIn: true,
+      role: userState.role,
       uid: userState.uid,
       username: userState.username,
     },
@@ -17,6 +20,7 @@ export const signOutAction = () => {
     type: SIGN_OUT,
     payload: {
       isSignedIn: false,
+      role: "",
       uid: "",
       username: "",
     },

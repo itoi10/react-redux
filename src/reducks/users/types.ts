@@ -1,6 +1,6 @@
 export interface UserState {
-  icon: string;
-  isSignedIn: boolean;
+  isSignedIn?: boolean;
+  role: string;
   uid: string;
   username: string;
 }

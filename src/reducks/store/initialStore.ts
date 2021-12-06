@@ -3,9 +3,9 @@ const initialState = {
   // userの状態
   users: {
     isSignedIn: false,
+    role: "",
     uid: "",
     username: "",
-    icon: "",
   },
 
   // 商品の状態
