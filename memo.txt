@@ -61,3 +61,22 @@ firestore.rulesで設定
 
 ルールのみ適用するコマンド
 $ firebase deploy --only firestore:rules
+
+
+# Firebase Auth メソッド
+https://firebase.google.com/docs/auth/web/manage-users?hl=ja
+
+- createUserWithEmailAndPassword()  新規ユーザ作成
+- signInWIthEmailAndPassword()      サインイン
+  引数: email: string, password: string
+  戻り値: Promise<firebase.auth.UserCredential>
+
+
+- onAuthStateChanged() 認証状態を監視して変化が有ったら戻り値を返す
+  引数: なし
+  戻り値: firebase.Observer | firebase.User
+
+- sendPasswordResetEmail() パスワードリセットメースを送信する
+  引数: email: string
+  戻り値: Promise<void>
+

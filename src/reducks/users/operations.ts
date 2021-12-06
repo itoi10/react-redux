@@ -3,6 +3,39 @@ import { push } from "connected-react-router";
 import { auth, FirebaseTimestamp, firestore } from "../../firebase/index";
 import { UserState } from "./types";
 
+// 認証リッスン
+export const listenAuthState = () => {
+  return async (dispatch: any) => {
+    return auth.onAuthStateChanged((user) => {
+      // 未ログインだったらサインイン画面に遷移
+      if (!user) {
+        dispatch(push("/signin"));
+        return false;
+      }
+
+      // Firestoreからユーザー情報取得
+      const uid = user.uid;
+      firestore
+        .collection("users")
+        .doc(uid)
+        .get()
+        .then((snapshot) => {
+          const data = snapshot.data() as UserState;
+          // store更新
+          dispatch(
+            signInAction({
+              role: data.role,
+              uid: data.uid,
+              username: data.username,
+            })
+          );
+          // トップページへ遷移
+          dispatch(push("/"));
+        });
+    });
+  };
+};
+
 export const signIn = (email: string, password: string) => {
   return async (dispatch: any) => {
     // validation
@@ -16,17 +49,18 @@ export const signIn = (email: string, password: string) => {
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!pattern.test(email)) {
       alert("メールアドレスの形式が間違っています");
-      return false
+      return false;
     }
 
     // Firebaseサインイン
-    auth.signInWithEmailAndPassword(email, password)
+    auth
+      .signInWithEmailAndPassword(email, password)
       .then((result) => {
         const user = result.user;
         // 異常系
         if (!user) {
-          alert('ユーザー情報を取得できませんでした。')
-          return false
+          alert("ユーザー情報を取得できませんでした。");
+          return false;
         }
 
         const uid = user.uid;
@@ -48,11 +82,12 @@ export const signIn = (email: string, password: string) => {
             // トップページへ遷移
             dispatch(push("/"));
           });
-      // 異常系
-      }).catch((error) => {
-        alert('サインインに失敗しました。もう一度お試しください。' + error)
-        return false;
       })
+      .catch((error) => {
+        // 異常系
+        alert("サインインに失敗しました。もう一度お試しください。" + error);
+        return false;
+      });
   };
 };
 
@@ -70,12 +105,12 @@ export const signUp = (username: string, email: string, password: string, confir
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!pattern.test(email)) {
       alert("メールアドレスの形式が間違っています");
-      return false
+      return false;
     }
 
     if (password.length < 6) {
-      alert("パスワードは６文字以上で入力してください。")
-      return false
+      alert("パスワードは６文字以上で入力してください。");
+      return false;
     }
 
     if (password !== confirmPassword) {
@@ -84,7 +119,8 @@ export const signUp = (username: string, email: string, password: string, confir
     }
 
     // Firebaseユーザー作成
-    return auth.createUserWithEmailAndPassword(email, password)
+    return auth
+      .createUserWithEmailAndPassword(email, password)
       .then((result) => {
         const user = result.user;
         if (user) {
@@ -111,10 +147,11 @@ export const signUp = (username: string, email: string, password: string, confir
               dispatch(push("/"));
             });
         }
-      // 異常系
-      }).catch((error) => {
-        alert('アカウント登録に失敗しました。' + error)
-        return false;
       })
+      .catch((error) => {
+        // 異常系
+        alert("アカウント登録に失敗しました。もう一度お試しください。" + error);
+        return false;
+      });
   };
 };
