@@ -1,4 +1,4 @@
-import { signInAction } from "./actions";
+import { signInAction, signOutAction } from "./actions";
 import { push } from "connected-react-router";
 import { auth, FirebaseTimestamp, firestore } from "../../firebase/index";
 import { UserState } from "./types";
@@ -36,6 +36,7 @@ export const listenAuthState = () => {
   };
 };
 
+// サインイン
 export const signIn = (email: string, password: string) => {
   return async (dispatch: any) => {
     // validation
@@ -155,3 +156,21 @@ export const signUp = (username: string, email: string, password: string, confir
       });
   };
 };
+
+// サインアウト
+export const signOut = () => {
+  // Firebaseサインアウト
+  return async (dispatch: any) => {
+    auth.signOut().then(() => {
+      // storeを初期状態へ
+      dispatch(signOutAction());
+      dispatch(push("/signin"));
+    });
+  };
+};
+
+// 雛形
+// export const func = () => {
+//   return async (dispatch: any) => {
+//   }
+// }
