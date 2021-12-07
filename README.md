@@ -12,6 +12,8 @@ EC アプリ
 
 ## セットアップ
 
+Firebase 設定しないと起動してもエラーになる
+
 ```
 yarn install
 yarn start
