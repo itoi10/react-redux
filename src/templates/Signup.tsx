@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { TextInput, PrimaryButton } from "../components/UIkit";
 import { signUp } from "../reducks/users/operations";
 import { push } from "connected-react-router";
+import { Card, CardContent } from "@material-ui/core";
 
 const SignUp: React.FC = () => {
   const dispatch = useDispatch();
@@ -43,71 +44,77 @@ const SignUp: React.FC = () => {
 
   return (
     <div className="c-section-container">
-      <h2 className="u-text__headline u-text-center">アカウント登録</h2>
-
       <div className="module-spacer--medium" />
+      <Card>
+        <CardContent>
+          <div className="module-spacer--medium" />
+          <h2 className="u-text__headline u-text-center">アカウント登録</h2>
 
-      {/* ユーザー名 */}
-      <TextInput
-        fullWidth={true}
-        label={"ユーザー名"}
-        multiline={false}
-        required={true}
-        rows={1}
-        value={username}
-        type={"text"}
-        onChange={inputUsername}
-      />
-      {/* メールアドレス */}
-      <TextInput
-        fullWidth={true}
-        label={"メールアドレス"}
-        multiline={false}
-        required={true}
-        rows={1}
-        value={email}
-        type={"email"}
-        onChange={inputEmail}
-      />
-      {/* パスワード */}
-      <TextInput
-        fullWidth={true}
-        label={"パスワード"}
-        multiline={false}
-        required={true}
-        rows={1}
-        value={password}
-        type={"password"}
-        onChange={inputPassword}
-      />
-      {/* パスワード（再確認） */}
-      <TextInput
-        fullWidth={true}
-        label={"パスワード（再確認）"}
-        multiline={false}
-        required={true}
-        rows={1}
-        value={confirmPassword}
-        type={"password"}
-        onChange={inputConfirmPassword}
-      />
+          <div className="module-spacer--medium" />
 
-      <div className="module-spacer--medium" />
+          {/* ユーザー名 */}
+          <TextInput
+            fullWidth={true}
+            label={"ユーザー名"}
+            multiline={false}
+            required={true}
+            rows={1}
+            value={username}
+            type={"text"}
+            onChange={inputUsername}
+          />
+          {/* メールアドレス */}
+          <TextInput
+            fullWidth={true}
+            label={"メールアドレス"}
+            multiline={false}
+            required={true}
+            rows={1}
+            value={email}
+            type={"email"}
+            onChange={inputEmail}
+          />
+          {/* パスワード */}
+          <TextInput
+            fullWidth={true}
+            label={"パスワード"}
+            multiline={false}
+            required={true}
+            rows={1}
+            value={password}
+            type={"password"}
+            onChange={inputPassword}
+          />
+          {/* パスワード（再確認） */}
+          <TextInput
+            fullWidth={true}
+            label={"パスワード（再確認）"}
+            multiline={false}
+            required={true}
+            rows={1}
+            value={confirmPassword}
+            type={"password"}
+            onChange={inputConfirmPassword}
+          />
 
-      {/* ボタン */}
-      <div className="center">
-        {/* <PrimaryButton
+          <div className="module-spacer--medium" />
+
+          {/* ボタン */}
+          <div className="center">
+            {/* <PrimaryButton
           label={"アカウントを登録する"}
           onClick={() => dispatch(signUp(username, email, password, confirmPassword))}
         /> */}
-        <PrimaryButton
-          label={"アカウントを登録する(無効)"}
-          onClick={() => alert("デモアプリであり登録受付を無効にしています")}
-        />
+            <PrimaryButton
+              label={"アカウントを登録する(無効)"}
+              onClick={() => alert("デモアプリであり登録を無効にしています")}
+            />
 
-        <div className="module-spacer--medium" />
-        <p onClick={() => dispatch(push("/signin"))}>アカウントをすでにお持ちの方はこちら</p>
-      </div>
+            <div className="module-spacer--medium" />
+            <p onClick={() => dispatch(push("/signin"))}>アカウントをすでにお持ちの方はこちら</p>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };

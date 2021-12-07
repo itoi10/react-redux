@@ -9,7 +9,8 @@ interface Props {
 
 const useStyles = makeStyles({
   button: {
-    backgroundColor: "#4dd0e1",
+    background: "linear-gradient(#fffccd, #ffc400)",
+    border: "1px solid #000",
     color: "#000",
     fontSize: 16,
     height: 48,

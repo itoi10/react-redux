@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { TextInput, PrimaryButton } from "../components/UIkit";
 import { resetPassword } from "../reducks/users/operations";
 import { push } from "connected-react-router";
+import { Card, CardContent } from "@material-ui/core";
 
 const ResetPassword: React.FC = () => {
   const dispatch = useDispatch();
@@ -18,30 +19,36 @@ const ResetPassword: React.FC = () => {
 
   return (
     <div className="c-section-container">
-      <h2 className="u-text__headline u-text-center">パスワードリセット</h2>
-
       <div className="module-spacer--medium" />
+      <Card>
+        <CardContent>
+          <div className="module-spacer--medium" />
+          <h2 className="u-text__headline u-text-center">パスワードリセット</h2>
 
-      {/* メールアドレス */}
-      <TextInput
-        fullWidth={true}
-        label={"メールアドレス"}
-        multiline={false}
-        required={true}
-        rows={1}
-        value={email}
-        type={"email"}
-        onChange={inputEmail}
-      />
+          <div className="module-spacer--medium" />
 
-      <div className="module-spacer--medium" />
+          {/* メールアドレス */}
+          <TextInput
+            fullWidth={true}
+            label={"メールアドレス"}
+            multiline={false}
+            required={true}
+            rows={1}
+            value={email}
+            type={"email"}
+            onChange={inputEmail}
+          />
 
-      {/* ボタン */}
-      <div className="center">
-        <PrimaryButton label={"パスワードリセット"} onClick={() => dispatch(resetPassword(email))} />
-        <div className="module-spacer--medium" />
-        <p onClick={() => dispatch(push("/signin"))}>サインインページはこちら</p>
-      </div>
+          <div className="module-spacer--medium" />
+
+          {/* ボタン */}
+          <div className="center">
+            <PrimaryButton label={"パスワードリセット"} onClick={() => dispatch(resetPassword(email))} />
+            <div className="module-spacer--medium" />
+            <p onClick={() => dispatch(push("/signin"))}>サインインページはこちら</p>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };
