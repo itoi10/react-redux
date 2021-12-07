@@ -9,11 +9,22 @@ interface Props {
   rows: number;
   value: string;
   type: string;
+  placeholder?: string;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
 }
 
 // 入力フォーム部品
-const TextInput: React.FC<Props> = ({ fullWidth, label, multiline, required, rows, value, type, onChange }) => {
+const TextInput: React.FC<Props> = ({
+  fullWidth,
+  label,
+  multiline,
+  required,
+  rows,
+  value,
+  type,
+  placeholder,
+  onChange,
+}) => {
   return (
     <TextField
       fullWidth={fullWidth}
@@ -24,6 +35,7 @@ const TextInput: React.FC<Props> = ({ fullWidth, label, multiline, required, row
       rows={rows}
       value={value}
       type={type}
+      placeholder={placeholder}
       onChange={onChange}
     />
   );

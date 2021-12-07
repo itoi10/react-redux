@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { TextInput, PrimaryButton } from "../components/UIkit";
 import { signIn } from "../reducks/users/operations";
@@ -6,8 +6,8 @@ import { signIn } from "../reducks/users/operations";
 const SignIn: React.FC = () => {
   const dispatch = useDispatch();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("guest@example.com");
+  const [password, setPassword] = useState("password");
 
   const inputEmail = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,7 +56,7 @@ const SignIn: React.FC = () => {
 
       {/* ボタン */}
       <div className="center">
-        <PrimaryButton label={"Sign in"} onClick={() => dispatch(signIn(email, password))} />
+        <PrimaryButton label={"サインイン"} onClick={() => dispatch(signIn(email, password))} />
       </div>
     </div>
   );
