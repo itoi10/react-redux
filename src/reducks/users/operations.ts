@@ -29,8 +29,6 @@ export const listenAuthState = () => {
               username: data.username,
             })
           );
-          // トップページへ遷移
-          dispatch(push("/"));
         });
     });
   };
