@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { TextInput, PrimaryButton } from "../components/UIkit";
 import { signIn } from "../reducks/users/operations";
+import { push } from "connected-react-router";
 
 const SignIn: React.FC = () => {
   const dispatch = useDispatch();
@@ -57,6 +58,10 @@ const SignIn: React.FC = () => {
       {/* ボタン */}
       <div className="center">
         <PrimaryButton label={"サインイン"} onClick={() => dispatch(signIn(email, password))} />
+        <div className="module-spacer--medium" />
+        <p onClick={() => dispatch(push("/signup"))}>アカウントをお持ちでない方はこちら</p>
+        <div className="module-spacer--medium" />
+        <p onClick={() => dispatch(push("/signin/reset"))}>パスワードを忘れた方はこちら</p>
       </div>
     </div>
   );

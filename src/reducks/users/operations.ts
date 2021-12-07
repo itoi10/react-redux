@@ -84,9 +84,9 @@ export const signIn = (email: string, password: string) => {
             dispatch(push("/"));
           });
       })
-      .catch((error) => {
+      .catch((err) => {
         // 異常系
-        alert("サインインに失敗しました。もう一度お試しください。" + error);
+        alert("サインインに失敗しました。もう一度お試しください。" + err);
         return false;
       });
   };
@@ -149,9 +149,9 @@ export const signUp = (username: string, email: string, password: string, confir
             });
         }
       })
-      .catch((error) => {
+      .catch((err) => {
         // 異常系
-        alert("アカウント登録に失敗しました。もう一度お試しください。" + error);
+        alert("アカウント登録に失敗しました。もう一度お試しください。" + err);
         return false;
       });
   };
@@ -166,6 +166,33 @@ export const signOut = () => {
       dispatch(signOutAction());
       dispatch(push("/signin"));
     });
+  };
+};
+
+// パスワードリセットメール送信
+export const resetPassword = (email: string) => {
+  return async (dispatch: any) => {
+    if (email === "") {
+      alert("必須項目が未入力です。");
+      return false;
+    }
+
+    const pattern =
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (!pattern.test(email)) {
+      alert("メールアドレスの形式が間違っています");
+      return false;
+    }
+
+    auth
+      .sendPasswordResetEmail(email)
+      .then(() => {
+        alert("入力されたメールアドレスにパスワードリセット用のメールをお送りしました。");
+        dispatch(push("/signin"));
+      })
+      .catch((err) => {
+        alert("パスワードリセットに失敗しました。もう一度お試しください。" + err);
+      });
   };
 };
 
