@@ -8,7 +8,7 @@ interface Props {
 }
 
 // 認証確認. サインイン中に表示したい要素はこのコンポーネントでラッピングする
-const Auth: React.FC<Props> = ({ children }) => {
+const Auth: React.FC<Props> = (props) => {
   const dispatch = useDispatch();
   const selector = useSelector((state) => state);
   const isSignedIn = getIsSignedIn(selector);
@@ -23,7 +23,7 @@ const Auth: React.FC<Props> = ({ children }) => {
   if (!isSignedIn) {
     return <></>;
   } else {
-    return <>{children}</>;
+    return <>{props.children}</>;
   }
 };
 

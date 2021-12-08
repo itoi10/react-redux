@@ -14,29 +14,19 @@ interface Props {
 }
 
 // 入力フォーム部品
-const TextInput: React.FC<Props> = ({
-  fullWidth,
-  label,
-  multiline,
-  required,
-  rows,
-  value,
-  type,
-  placeholder,
-  onChange,
-}) => {
+const TextInput: React.FC<Props> = (props) => {
   return (
     <TextField
-      fullWidth={fullWidth}
-      label={label}
+      fullWidth={props.fullWidth}
+      label={props.label}
       margin="dense"
-      multiline={multiline}
-      required={required}
-      rows={rows}
-      value={value}
-      type={type}
-      placeholder={placeholder}
-      onChange={onChange}
+      multiline={props.multiline}
+      required={props.required}
+      rows={props.rows}
+      value={props.value}
+      type={props.type}
+      placeholder={props.placeholder}
+      onChange={props.onChange}
     />
   );
 };

@@ -1,15 +1,15 @@
-import React from 'react'
-import { InputLabel, MenuItem, FormControl, Select } from '@material-ui/core'
+import React from "react";
+import { InputLabel, MenuItem, FormControl, Select } from "@material-ui/core";
 
 interface Props {
-  label: string
-  required: boolean
-  value: string
-  select: (param: string) => void
-  options: {id:string, name:string}[]
+  label: string;
+  required: boolean;
+  value: string;
+  select: (param: string) => void;
+  options: { id: string; name: string }[];
 }
 
-const SelectBox:React.FC<Props> = (props) => {
+const SelectBox: React.FC<Props> = (props) => {
   return (
     <FormControl>
       <InputLabel>{props.label}</InputLabel>
@@ -18,17 +18,14 @@ const SelectBox:React.FC<Props> = (props) => {
         value={props.value}
         onChange={(e) => props.select(e.currentTarget.value as string)}
       >
-        {props.options.map(option => {
-          <MenuItem
-            key={option.id}
-            value={option.id}
-          >
+        {props.options.map((option) => {
+          <MenuItem key={option.id} value={option.id}>
             {option.name}
-          </MenuItem>
+          </MenuItem>;
         })}
       </Select>
     </FormControl>
-  )
-}
+  );
+};
 
-export default SelectBox
+export default SelectBox;

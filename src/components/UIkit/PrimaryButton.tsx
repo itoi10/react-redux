@@ -19,12 +19,12 @@ const useStyles = makeStyles({
   },
 });
 
-const PrimaryButton: React.FC<Props> = ({ label, onClick }) => {
+const PrimaryButton: React.FC<Props> = (props) => {
   const classes = useStyles();
 
   return (
-    <Button className={classes.button} variant="contained" onClick={() => onClick()}>
-      {label}
+    <Button className={classes.button} variant="contained" onClick={() => props.onClick()}>
+      {props.label}
     </Button>
   );
 };
