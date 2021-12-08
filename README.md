@@ -1,8 +1,8 @@
-# [React Redux テスト](https://redux-ec-4ac02.web.app)
+# [React Redux テスト](https://redux-ec-4ac02.web.app/signin)
 
 ## デプロイ
 
-[firebase](https://redux-ec-4ac02.web.app)
+[firebase](https://redux-ec-4ac02.web.app/signin)
 
 ## 説明
 

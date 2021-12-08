@@ -7,5 +7,4 @@
 export const firebaseConfig = {
   apiKey: "hoge",
   authDomain: "fuge",
-
 };

@@ -29,3 +29,11 @@ html {
   margin: 0 auto;
   text-align: center;
 }
+
+.c-section-container {
+  margin: 0 auto;
+  max-width: 400px;
+  padding: 1rem;
+  height: auto;
+  width: calc(100% - 2rem);
+}
