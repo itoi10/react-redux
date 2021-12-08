@@ -1,5 +1,6 @@
 import React from "react";
 import { InputLabel, MenuItem, FormControl, Select } from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
 
 interface Props {
   label: string;
@@ -9,20 +10,30 @@ interface Props {
   options: { id: string; name: string }[];
 }
 
+const useStyles = makeStyles({
+  formControl: {
+    marginBottom: 16,
+    minWidth: 128,
+    width: "100%",
+  },
+});
+
 const SelectBox: React.FC<Props> = (props) => {
+  const classes = useStyles();
+
   return (
-    <FormControl>
+    <FormControl className={classes.formControl}>
       <InputLabel>{props.label}</InputLabel>
       <Select
         required={props.required}
         value={props.value}
         onChange={(e) => props.select(e.currentTarget.value as string)}
       >
-        {props.options.map((option) => {
+        {props.options.map((option) => (
           <MenuItem key={option.id} value={option.id}>
             {option.name}
-          </MenuItem>;
-        })}
+          </MenuItem>
+        ))}
       </Select>
     </FormControl>
   );
