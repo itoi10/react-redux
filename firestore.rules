@@ -11,8 +11,13 @@ service cloud.firestore {
       allow update: if request.auth.uid == userId;
       allow delete: if request.auth.uid == userId;
     }
-    // match /{document=**} {
-    //   allow read, write: if false;
-    // }
+
+    match /products/{productId} {
+      // 商品情報は管理者のみ変更できるようにしたほうが良いが、今は認証できれいれば良しとする
+      allow read: if request.auth.uid != null;
+      allow write: if request.auth.uid != null;
+    }
   }
 }
+
+// firebase deploy --only firestore:rules

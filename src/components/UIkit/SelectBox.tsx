@@ -24,11 +24,7 @@ const SelectBox: React.FC<Props> = (props) => {
   return (
     <FormControl className={classes.formControl}>
       <InputLabel>{props.label}</InputLabel>
-      <Select
-        required={props.required}
-        value={props.value}
-        onChange={(e) => props.select(e.currentTarget.value as string)}
-      >
+      <Select required={props.required} value={props.value} onChange={(e) => props.select(e.target.value as string)}>
         {props.options.map((option) => (
           <MenuItem key={option.id} value={option.id}>
             {option.name}

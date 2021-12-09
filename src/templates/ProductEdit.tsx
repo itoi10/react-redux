@@ -1,7 +1,11 @@
 import React, { useCallback, useState } from "react";
 import { SelectBox, TextInput, PrimaryButton } from "../components/UIkit";
+import { useDispatch } from "react-redux";
+import { saveProducts } from "../reducks/products/operations";
 
 const ProductEdit: React.FC = () => {
+  const dispatch = useDispatch();
+
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
@@ -29,13 +33,13 @@ const ProductEdit: React.FC = () => {
     [setPrice]
   );
 
-  const categories = [
+  const category_list = [
     { id: "tops", name: "トップス" },
     { id: "shirts", name: "シャツ" },
     { id: "pants", name: "パンツ" },
   ];
 
-  const genders = [
+  const gender_list = [
     { id: "all", name: "すべて" },
     { id: "male", name: "メンズ" },
     { id: "female", name: "レディース" },
@@ -70,10 +74,10 @@ const ProductEdit: React.FC = () => {
         />
 
         {/* カテゴリー */}
-        <SelectBox label={"カテゴリー"} required={true} select={setCategory} value={category} options={categories} />
+        <SelectBox label={"カテゴリー"} required={true} select={setCategory} value={category} options={category_list} />
 
         {/* 性別 */}
-        <SelectBox label={"性別"} required={true} select={setGender} value={gender} options={genders} />
+        <SelectBox label={"性別"} required={true} select={setGender} value={gender} options={gender_list} />
 
         {/* 価格 */}
         <TextInput
@@ -89,7 +93,10 @@ const ProductEdit: React.FC = () => {
         <div className="module-spacer--medium" />
 
         <div className="center">
-          <PrimaryButton label={"商品情報を保存"} onClick={() => {}}></PrimaryButton>
+          <PrimaryButton
+            label={"商品情報を保存"}
+            onClick={() => dispatch(saveProducts(name, description, category, gender, price))}
+          ></PrimaryButton>
         </div>
       </div>
     </section>
