@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { SelectBox, TextInput } from "../components/UIkit";
+import { SelectBox, TextInput, PrimaryButton } from "../components/UIkit";
 
 const ProductEdit: React.FC = () => {
   const [name, setName] = useState("");
@@ -86,6 +86,11 @@ const ProductEdit: React.FC = () => {
           value={price}
           type={"number"}
         />
+        <div className="module-spacer--medium" />
+
+        <div className="center">
+          <PrimaryButton label={"商品情報を保存"} onClick={() => {}}></PrimaryButton>
+        </div>
       </div>
     </section>
   );

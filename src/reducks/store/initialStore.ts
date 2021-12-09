@@ -9,7 +9,9 @@ const initialState = {
   },
 
   // 商品の状態
-  products: {},
+  products: {
+    list: [],
+  },
 };
 
 export default initialState;
