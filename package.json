@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@craco/craco": "^6.4.3",
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/styles": "^4.11.4",
@@ -33,9 +34,9 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
     "deploy": "yarn build && firebase deploy",
     "lint": "eslint --fix './{src,functions/src}/**/*.{js,jsx,ts,tsx}' && prettier --write './{src,functions/src}/**/*.{js,jsx,ts,tsx}'",
     "eject": "react-scripts eject"
@@ -59,8 +60,12 @@
     ]
   },
   "devDependencies": {
+    "@tailwindcss/postcss7-compat": "^2.2.17",
     "@types/history": "^4.7.9",
     "@types/react-router": "^5.1.17",
-    "prettier": "2.4.1"
+    "autoprefixer": "^9",
+    "postcss": "^7",
+    "prettier": "2.4.1",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat"
   }
 }
