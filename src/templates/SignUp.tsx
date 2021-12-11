@@ -43,14 +43,14 @@ const SignUp: React.FC = () => {
   );
 
   return (
-    <div className="c-section-container">
-      <div className="module-spacer--medium" />
+    <div className="my-0 mx-auto p-4 max-w-md h-auto w-full">
+      <div className="h-8" />
       <Card>
         <CardContent>
-          <div className="module-spacer--medium" />
-          <h2 className="u-text__headline u-text-center">アカウント登録</h2>
+          <div className="h-8" />
+          <h2 className="text-black text-2xl text-center mx-auto mb-4">アカウント登録</h2>
 
-          <div className="module-spacer--medium" />
+          <div className="h-8" />
 
           {/* ユーザー名 */}
           <TextInput
@@ -97,10 +97,10 @@ const SignUp: React.FC = () => {
             onChange={inputConfirmPassword}
           />
 
-          <div className="module-spacer--medium" />
+          <div className="h-8" />
 
           {/* ボタン */}
-          <div className="center">
+          <div className="mx-auto my-0 text-center">
             {/* <PrimaryButton
           label={"アカウントを登録する"}
           onClick={() => dispatch(signUp(username, email, password, confirmPassword))}
@@ -110,7 +110,7 @@ const SignUp: React.FC = () => {
               onClick={() => alert("デモアプリであり登録を無効にしています")}
             />
 
-            <div className="module-spacer--medium" />
+            <div className="h-8" />
             <p onClick={() => dispatch(push("/signin"))}>アカウントをすでにお持ちの方はこちら</p>
           </div>
         </CardContent>

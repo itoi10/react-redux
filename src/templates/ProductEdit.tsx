@@ -48,8 +48,10 @@ const ProductEdit: React.FC = () => {
 
   return (
     <section>
-      <h2 className="u-text__headline u-text-center">商品の登録・編集</h2>
-      <div className="c-section-container">
+      <h2 className="text-black text-2xl text-center mx-auto mb-4">
+        商品の登録・編集
+      </h2>
+      <div className="my-0 mx-auto p-4 max-w-md h-auto w-full">
         {/* 画像登録 */}
         <ImageArea />
         {/* 商品名 */}
@@ -93,9 +95,9 @@ const ProductEdit: React.FC = () => {
           value={price}
           type={"number"}
         />
-        <div className="module-spacer--medium" />
+        <div className="h-8" />
 
-        <div className="center">
+        <div className="mx-auto my-0 text-center">
           <PrimaryButton
             label={"商品情報を保存"}
             onClick={() => dispatch(saveProducts(name, description, category, gender, price))}

@@ -26,14 +26,14 @@ const SignIn: React.FC = () => {
   );
 
   return (
-    <div className="c-section-container">
-      <div className="module-spacer--medium" />
+    <div className="my-0 mx-auto p-4 max-w-md h-auto w-full">
+      <div className="h-8" />
       <Card>
         <CardContent>
-          <div className="module-spacer--medium" />
-          <h2 className="u-text__headline u-text-center">サインイン</h2>
+          <div className="h-8" />
+          <h2 className="text-black text-2xl text-center mx-auto mb-4">サインイン</h2>
 
-          <div className="module-spacer--medium" />
+          <div className="h-8" />
 
           {/* メールアドレス */}
           <TextInput
@@ -58,14 +58,14 @@ const SignIn: React.FC = () => {
             onChange={inputPassword}
           />
 
-          <div className="module-spacer--medium" />
+          <div className="h-8" />
 
           {/* ボタン */}
-          <div className="center">
+          <div className="mx-auto my-0 text-center">
             <PrimaryButton label={"サインイン"} onClick={() => dispatch(signIn(email, password))} />
-            <div className="module-spacer--medium" />
+            <div className="h-8" />
             <p onClick={() => dispatch(push("/signup"))}>アカウントをお持ちでない方はこちら</p>
-            <div className="module-spacer--medium" />
+            <div className="h-8" />
             <p onClick={() => dispatch(push("/signin/reset"))}>パスワードを忘れた方はこちら</p>
           </div>
         </CardContent>

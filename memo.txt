@@ -80,3 +80,5 @@ https://firebase.google.com/docs/auth/web/manage-users?hl=ja
   引数: email: string
   戻り値: Promise<void>
 
+# Tailwind cheat cheet
+https://nerdcave.com/tailwind-cheat-sheet

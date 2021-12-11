@@ -16,7 +16,7 @@ const Home: React.FC = () => {
       <h2>Home</h2>
       ログイン中
       {/* <p>ユーザーID：{uid}</p> */}
-      <p>ユーザー名；{username}</p>
+      <p>ユーザー名:{username}</p>
       <button onClick={() => dispatch(signOut())}>サインアウト</button>
     </div>
   );

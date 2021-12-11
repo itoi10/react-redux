@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import "./assets/reset.scss";
 import "./assets/style.scss";
 import { Provider } from "react-redux";
 import createStore from "./reducks/store/store";

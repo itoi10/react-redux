@@ -7,12 +7,12 @@ interface Props {}
 const ImageArea: React.FC<Props> = (props) => {
   return (
     <div>
-      <div className="u-text-right">
+      <div className="text-right">
         <span>商品画像を登録する</span>
         <IconButton>
           <label>
             <AddPhotoAlternateIcon />
-            <input className="u-display-none" type="file" id="image" />
+            <input className="hidden" type="file" id="image" />
           </label>
         </IconButton>
       </div>
