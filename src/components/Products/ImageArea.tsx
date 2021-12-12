@@ -3,6 +3,7 @@ import { IconButton } from "@material-ui/core";
 import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
 import { makeStyles } from "@material-ui/styles";
 import { firebaseStorage } from "../../firebase/index";
+import ImagePreview from "./ImagePreview";
 
 interface Props {
   images: any;
@@ -45,11 +46,16 @@ const ImageArea: React.FC<Props> = (props) => {
         });
       });
     },
+    // レンダーのたびに再作成するのは無駄なのでuseCallbackを使うが、setImages関数に変更があった場合は作り直す
     [props.setImages]
   );
 
   return (
     <div>
+      <div className="flex flex-wrap">
+        {props.images.length > 0 &&
+          props.images.map((image: any) => <ImagePreview path={image.path} id={image.id} key={image.id} />)}
+      </div>
       <div className="text-right">
         <span>商品画像を登録する</span>
         <IconButton className={classes.icon}>
