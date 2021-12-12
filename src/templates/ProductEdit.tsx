@@ -12,6 +12,7 @@ const ProductEdit: React.FC = () => {
   const [category, setCategory] = useState("");
   const [gender, setGender] = useState("");
   const [price, setPrice] = useState("");
+  const [images, setImages] = useState<any>([]);
 
   const inputName = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,12 +49,10 @@ const ProductEdit: React.FC = () => {
 
   return (
     <section>
-      <h2 className="text-black text-2xl text-center mx-auto mb-4">
-        商品の登録・編集
-      </h2>
+      <h2 className="text-black text-2xl text-center mx-auto mb-4">商品の登録・編集</h2>
       <div className="my-0 mx-auto p-4 max-w-md h-auto w-full">
         {/* 画像登録 */}
-        <ImageArea />
+        <ImageArea images={images} setImages={setImages} />
         {/* 商品名 */}
         <TextInput
           fullWidth={true}

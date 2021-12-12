@@ -1,12 +1,12 @@
 import { signInAction, signOutAction } from "./actions";
 import { push } from "connected-react-router";
-import { auth, FirebaseTimestamp, firestore } from "../../firebase/index";
+import { firebaseAuth, FirebaseTimestamp, firestore } from "../../firebase/index";
 import { UserState } from "./types";
 
 // 認証リッスン
 export const listenAuthState = () => {
   return async (dispatch: any) => {
-    return auth.onAuthStateChanged((user) => {
+    return firebaseAuth.onAuthStateChanged((user) => {
       // 未ログインだったらサインイン画面に遷移
       if (!user) {
         dispatch(push("/signin"));
@@ -52,7 +52,7 @@ export const signIn = (email: string, password: string) => {
     }
 
     // Firebaseサインイン
-    auth
+    firebaseAuth
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
         const user = result.user;
@@ -118,7 +118,7 @@ export const signUp = (username: string, email: string, password: string, confir
     }
 
     // Firebaseユーザー作成
-    return auth
+    return firebaseAuth
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
         const user = result.user;
@@ -159,7 +159,7 @@ export const signUp = (username: string, email: string, password: string, confir
 export const signOut = () => {
   // Firebaseサインアウト
   return async (dispatch: any) => {
-    auth.signOut().then(() => {
+    firebaseAuth.signOut().then(() => {
       // storeを初期状態へ
       dispatch(signOutAction());
       dispatch(push("/signin"));
@@ -182,7 +182,7 @@ export const resetPassword = (email: string) => {
       return false;
     }
 
-    auth
+    firebaseAuth
       .sendPasswordResetEmail(email)
       .then(() => {
         alert("入力されたメールアドレスにパスワードリセット用のメールをお送りしました。");
