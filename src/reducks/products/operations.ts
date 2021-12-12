@@ -4,7 +4,14 @@ import { push } from "connected-react-router";
 const productsRef = firestore.collection("products");
 
 // 商品登録
-export const saveProducts = (name: string, description: string, category: string, gender: string, price: string) => {
+export const saveProducts = (
+  name: string,
+  description: string,
+  category: string,
+  gender: string,
+  price: string,
+  images: { id: string; path: string }
+) => {
   return async (dispatch: any) => {
     const timestamp = FirebaseTimestamp.now();
 
@@ -17,6 +24,7 @@ export const saveProducts = (name: string, description: string, category: string
       gender: gender,
       name: name,
       price: parseInt(price, 10), // 第二引数は10進数という意味
+      images: images,
     };
 
     const ref = productsRef.doc();

@@ -99,7 +99,7 @@ const ProductEdit: React.FC = () => {
         <div className="mx-auto my-0 text-center">
           <PrimaryButton
             label={"商品情報を保存"}
-            onClick={() => dispatch(saveProducts(name, description, category, gender, price))}
+            onClick={() => dispatch(saveProducts(name, description, category, gender, price, images))}
           ></PrimaryButton>
         </div>
       </div>

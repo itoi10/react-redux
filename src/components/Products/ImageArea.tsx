@@ -6,8 +6,8 @@ import { firebaseStorage } from "../../firebase/index";
 import ImagePreview from "./ImagePreview";
 
 interface Props {
-  images: any;
-  setImages: any;
+  images: { id: string; path: string }[];
+  setImages: (param: any) => void;
 }
 
 const useStyle = makeStyles({
@@ -50,11 +50,28 @@ const ImageArea: React.FC<Props> = (props) => {
     [props.setImages]
   );
 
+  const deleteImage = useCallback(
+    async (id: string) => {
+      if (!window.confirm("この画像を削除しますか？")) {
+        return false;
+      }
+      // stateから削除
+      const newImages = props.images.filter((image) => image.id !== id);
+      props.setImages(newImages);
+      // firebase storageからも削除
+      return firebaseStorage.ref("images").child(id).delete();
+    },
+    // 画像が変更するたびに作り直さないと異なる画像が削除されることがあるかもしれない
+    [props.images]
+  );
+
   return (
     <div>
       <div className="flex flex-wrap">
         {props.images.length > 0 &&
-          props.images.map((image: any) => <ImagePreview path={image.path} id={image.id} key={image.id} />)}
+          props.images.map((image: any) => (
+            <ImagePreview path={image.path} id={image.id} delete={deleteImage} key={image.id} />
+          ))}
       </div>
       <div className="text-right">
         <span>商品画像を登録する</span>

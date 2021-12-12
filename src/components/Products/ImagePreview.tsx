@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/styles";
 interface Props {
   id: string;
   path: string;
+  delete: (id: string) => any;
 }
 
 const useStyles = makeStyles({
@@ -32,7 +33,7 @@ const useStyles = makeStyles({
 const ImagePreview: React.FC<Props> = (props) => {
   const classes = useStyles();
   return (
-    <div className={classes.media_thumb}>
+    <div className={classes.media_thumb} onClick={() => props.delete(props.id)}>
       <img alt={"プレビュー画像"} src={props.path} />
     </div>
   );
