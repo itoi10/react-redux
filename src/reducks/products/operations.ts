@@ -5,6 +5,7 @@ const productsRef = firestore.collection("products");
 
 // 商品登録
 export const saveProducts = (
+  id: string,
   name: string,
   description: string,
   category: string,
@@ -15,9 +16,7 @@ export const saveProducts = (
   return async (dispatch: any) => {
     const timestamp = FirebaseTimestamp.now();
 
-    const data = {
-      id: "",
-      created_at: timestamp,
+    const data: any = {
       updated_at: timestamp,
       category: category,
       description: description,
@@ -27,13 +26,17 @@ export const saveProducts = (
       images: images,
     };
 
-    const ref = productsRef.doc();
-    const id = ref.id; // firestoreが自動採番した値を取得
-    data.id = id;
+    // 新規作成時
+    if (id === "") {
+      const ref = productsRef.doc();
+      id = ref.id; // firestoreが自動採番した値を取得
+      data.id = id;
+      data.created_at = timestamp;
+    }
 
     return productsRef
       .doc(id)
-      .set(data)
+      .set(data, { merge: true }) // 更新
       .then(() => {
         // 成功したらトップへ
         dispatch(push("/"));
