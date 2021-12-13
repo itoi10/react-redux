@@ -16,7 +16,7 @@ export const saveProducts = (
   return async (dispatch: any) => {
     const timestamp = FirebaseTimestamp.now();
 
-    const data: any = {
+    const data: { [name: string]: any } = {
       updated_at: timestamp,
       category: category,
       description: description,
