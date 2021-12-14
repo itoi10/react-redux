@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { saveProducts } from "../reducks/products/operations";
 import ImageArea from "../components/Products/ImageArea";
 import { firestore } from "../firebase";
+import { SetSizeArea } from "../components/Products";
 
 const ProductEdit: React.FC = () => {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const ProductEdit: React.FC = () => {
   const [gender, setGender] = useState("");
   const [price, setPrice] = useState("");
   const [images, setImages] = useState<any>([]);
+  const [sizes, setSizes] = useState<any>([]);
 
   const inputName = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -119,8 +121,9 @@ const ProductEdit: React.FC = () => {
           value={price}
           type={"number"}
         />
-        <div className="h-8" />
-
+        <div className="h-4" />
+        <SetSizeArea sizes={sizes} />
+        <div className="h-4" />
         <div className="mx-auto my-0 text-center">
           <PrimaryButton
             label={"商品情報を保存"}
