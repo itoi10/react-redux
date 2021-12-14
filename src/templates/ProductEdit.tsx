@@ -122,7 +122,7 @@ const ProductEdit: React.FC = () => {
           type={"number"}
         />
         <div className="h-4" />
-        <SetSizeArea sizes={sizes} />
+        <SetSizeArea sizes={sizes} setSizes={setSizes} />
         <div className="h-4" />
         <div className="mx-auto my-0 text-center">
           <PrimaryButton

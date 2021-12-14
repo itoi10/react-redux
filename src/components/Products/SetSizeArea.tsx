@@ -8,6 +8,7 @@ import { TextInput } from "../UIkit";
 
 interface Props {
   sizes: Array<any>;
+  setSizes: any;
 }
 
 const useStyle = makeStyles({
@@ -40,6 +41,17 @@ const SetSizeArea: React.FC<Props> = (props) => {
     },
     [setQuantity]
   );
+
+  const addSize = (index: number, size: string, quantity: number) => {
+    // 入力チェック
+    if (size === "" || quantity <= 0) {
+      return false;
+    }
+    props.setSizes((prev: any) => [...prev, { size: size, quantity: quantity }]);
+    setIndex(index + 1);
+    setSize("");
+    setQuantity(0);
+  };
 
   return (
     <div>
@@ -99,7 +111,7 @@ const SetSizeArea: React.FC<Props> = (props) => {
             type={"number"}
           />
         </div>
-        <IconButton className={classes.checkIcon}>
+        <IconButton className={classes.checkIcon} onClick={() => addSize(index, size, quantity)}>
           <CheckCircleIcon />
         </IconButton>
       </TableContainer>
