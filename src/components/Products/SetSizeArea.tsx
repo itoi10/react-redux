@@ -47,10 +47,30 @@ const SetSizeArea: React.FC<Props> = (props) => {
     if (size === "" || quantity <= 0) {
       return false;
     }
-    props.setSizes((prev: any) => [...prev, { size: size, quantity: quantity }]);
+    // 新規追加
+    if (index === props.sizes.length) {
+      props.setSizes((prev: any) => [...prev, { size: size, quantity: quantity }]);
+      // 編集
+    } else {
+      const newSizes = props.sizes;
+      newSizes[index] = { size: size, quantity: quantity };
+      props.setSizes(newSizes);
+    }
+    // 入力欄初期化
     setIndex(index + 1);
     setSize("");
     setQuantity(0);
+  };
+
+  const editSize = (index: number, size: string, quantity: number) => {
+    setIndex(index);
+    setSize(size);
+    setQuantity(quantity);
+  };
+
+  const deleteSize = (deleteIndex: number) => {
+    const newSizes = props.sizes.filter((item, i) => i !== deleteIndex);
+    props.setSizes(newSizes);
   };
 
   return (
@@ -65,7 +85,7 @@ const SetSizeArea: React.FC<Props> = (props) => {
               <TableCell className={classes.iconCell} />
               <TableBody>
                 {props.sizes.length > 0 &&
-                  props.sizes.map((item, index) => (
+                  props.sizes.map((item, i) => (
                     <TableRow key={item.size}>
                       {/* サイズ */}
                       <TableCell>{item.size}</TableCell>
@@ -73,13 +93,13 @@ const SetSizeArea: React.FC<Props> = (props) => {
                       <TableCell>{item.quantity}</TableCell>
                       {/* 編集アイコン */}
                       <TableCell>
-                        <IconButton className={classes.iconCell}>
+                        <IconButton className={classes.iconCell} onClick={() => editSize(i, item.size, item.quantity)}>
                           <EditIcon />
                         </IconButton>
                       </TableCell>
                       {/* 削除アイコン */}
                       <TableCell>
-                        <IconButton className={classes.iconCell}>
+                        <IconButton className={classes.iconCell} onClick={() => deleteSize(i)}>
                           <DeleteIcon />
                         </IconButton>
                       </TableCell>
