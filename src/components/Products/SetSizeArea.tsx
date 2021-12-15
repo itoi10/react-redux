@@ -3,12 +3,12 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import { makeStyles } from "@material-ui/styles";
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import { TextInput } from "../UIkit";
 
 interface Props {
-  sizes: Array<any>;
-  setSizes: any;
+  sizes: { quantity: string; size: string }[];
+  setSizes: (sizes: any) => void;
 }
 
 const useStyle = makeStyles({
@@ -26,7 +26,7 @@ const SetSizeArea: React.FC<Props> = (props) => {
 
   const [index, setIndex] = useState(0);
   const [size, setSize] = useState("");
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState("0");
 
   const inputSize = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,14 +37,14 @@ const SetSizeArea: React.FC<Props> = (props) => {
 
   const inputQuantity = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      setQuantity(parseInt(e.target.value));
+      setQuantity(e.target.value);
     },
     [setQuantity]
   );
 
-  const addSize = (index: number, size: string, quantity: number) => {
+  const addSize = (index: number, size: string, quantity: string) => {
     // 入力チェック
-    if (size === "" || quantity <= 0) {
+    if (size === "" || quantity == "") {
       return false;
     }
     // 新規追加
@@ -59,10 +59,10 @@ const SetSizeArea: React.FC<Props> = (props) => {
     // 入力欄初期化
     setIndex(index + 1);
     setSize("");
-    setQuantity(0);
+    setQuantity("0");
   };
 
-  const editSize = (index: number, size: string, quantity: number) => {
+  const editSize = (index: number, size: string, quantity: string) => {
     setIndex(index);
     setSize(size);
     setQuantity(quantity);
@@ -72,6 +72,10 @@ const SetSizeArea: React.FC<Props> = (props) => {
     const newSizes = props.sizes.filter((item, i) => i !== deleteIndex);
     props.setSizes(newSizes);
   };
+
+  const memoIndex = useMemo(() => {
+    setIndex(props.sizes.length);
+  }, [props.sizes.length]);
 
   return (
     <div>
@@ -83,31 +87,31 @@ const SetSizeArea: React.FC<Props> = (props) => {
               <TableCell>数量</TableCell>
               <TableCell className={classes.iconCell} />
               <TableCell className={classes.iconCell} />
-              <TableBody>
-                {props.sizes.length > 0 &&
-                  props.sizes.map((item, i) => (
-                    <TableRow key={item.size}>
-                      {/* サイズ */}
-                      <TableCell>{item.size}</TableCell>
-                      {/* 数量 */}
-                      <TableCell>{item.quantity}</TableCell>
-                      {/* 編集アイコン */}
-                      <TableCell>
-                        <IconButton className={classes.iconCell} onClick={() => editSize(i, item.size, item.quantity)}>
-                          <EditIcon />
-                        </IconButton>
-                      </TableCell>
-                      {/* 削除アイコン */}
-                      <TableCell>
-                        <IconButton className={classes.iconCell} onClick={() => deleteSize(i)}>
-                          <DeleteIcon />
-                        </IconButton>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-              </TableBody>
             </TableRow>
           </TableHead>
+          <TableBody>
+            {props.sizes.length > 0 &&
+              props.sizes.map((item, i) => (
+                <TableRow key={item.size}>
+                  {/* サイズ */}
+                  <TableCell>{item.size}</TableCell>
+                  {/* 数量 */}
+                  <TableCell>{item.quantity}</TableCell>
+                  {/* 編集アイコン */}
+                  <TableCell>
+                    <IconButton className={classes.iconCell} onClick={() => editSize(i, item.size, item.quantity)}>
+                      <EditIcon />
+                    </IconButton>
+                  </TableCell>
+                  {/* 削除アイコン */}
+                  <TableCell>
+                    <IconButton className={classes.iconCell} onClick={() => deleteSize(i)}>
+                      <DeleteIcon />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))}
+          </TableBody>
         </Table>
         <div>
           <TextInput
@@ -127,7 +131,7 @@ const SetSizeArea: React.FC<Props> = (props) => {
             required={true}
             onChange={inputQuantity}
             rows={1}
-            value={quantity.toString()}
+            value={quantity}
             type={"number"}
           />
         </div>

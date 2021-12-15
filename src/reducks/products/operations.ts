@@ -11,7 +11,8 @@ export const saveProducts = (
   category: string,
   gender: string,
   price: string,
-  images: { id: string; path: string }
+  images: { id: string; path: string }[],
+  sizes: { quantity: string; size: string }[]
 ) => {
   return async (dispatch: any) => {
     const timestamp = FirebaseTimestamp.now();
@@ -24,6 +25,7 @@ export const saveProducts = (
       name: name,
       price: parseInt(price, 10), // 第二引数は10進数という意味
       images: images,
+      sizes: sizes,
     };
 
     // 新規作成時

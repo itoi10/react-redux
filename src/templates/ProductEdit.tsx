@@ -19,8 +19,8 @@ const ProductEdit: React.FC = () => {
   const [category, setCategory] = useState("");
   const [gender, setGender] = useState("");
   const [price, setPrice] = useState("");
-  const [images, setImages] = useState<any>([]);
-  const [sizes, setSizes] = useState<any>([]);
+  const [images, setImages] = useState<{ id: string; path: string }[]>([]);
+  const [sizes, setSizes] = useState<{ quantity: string; size: string }[]>([]);
 
   const inputName = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,6 +70,7 @@ const ProductEdit: React.FC = () => {
           setGender(data.gender);
           setCategory(data.category);
           setPrice(data.price);
+          setSizes(data.sizes);
         });
     }
   }, [id]);
@@ -127,7 +128,7 @@ const ProductEdit: React.FC = () => {
         <div className="mx-auto my-0 text-center">
           <PrimaryButton
             label={"商品情報を保存"}
-            onClick={() => dispatch(saveProducts(id, name, description, category, gender, price, images))}
+            onClick={() => dispatch(saveProducts(id, name, description, category, gender, price, images, sizes))}
           ></PrimaryButton>
         </div>
       </div>
