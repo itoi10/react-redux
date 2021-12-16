@@ -1,7 +1,25 @@
 import { FirebaseTimestamp, firestore } from "../../firebase";
 import { push } from "connected-react-router";
+import { fetchProductsAction } from "./actions";
 
 const productsRef = firestore.collection("products");
+
+// 商品一覧取得
+export const fetchProducts = () => {
+  return async (dispatch: any) => {
+    productsRef
+      .orderBy("updated_at", "desc")
+      .get()
+      .then((snapshots) => {
+        const productList: any = [];
+        snapshots.forEach((snapshot) => {
+          const product = snapshot.data();
+          productList.push(product);
+        });
+        dispatch(fetchProductsAction(productList));
+      });
+  };
+};
 
 // 商品登録
 export const saveProducts = (
