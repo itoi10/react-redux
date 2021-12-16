@@ -20,7 +20,10 @@ const ProductList: React.FC<Props> = () => {
   return (
     <section className="mx-0 my-auto relative py-0 px-4 text-center w-full max-w-xl lg:max-w-5xl">
       <div className="flex flex-row flex-wrap">
-        {products.length > 0 && products.map((product: any) => <ProductCard key={product.id} />)}
+        {products.length > 0 &&
+          products.map((product: any) => (
+            <ProductCard key={product.id} name={product.name} price={product.price} images={product.images} />
+          ))}
       </div>
     </section>
   );
