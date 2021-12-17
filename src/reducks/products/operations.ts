@@ -1,8 +1,22 @@
 import { FirebaseTimestamp, firestore } from "../../firebase";
 import { push } from "connected-react-router";
-import { fetchProductsAction } from "./actions";
+import { fetchProductsAction, deleteProductAction } from "./actions";
 
 const productsRef = firestore.collection("products");
+
+// 商品削除
+export const deleteProduct = (id: number | string) => {
+  return async (dispatch: any, getState: any) => {
+    productsRef
+      .doc(id.toString())
+      .delete()
+      .then(() => {
+        const prevProducts: any[] = getState().products.list;
+        const nextProducts = prevProducts.filter((product) => product.id !== id);
+        dispatch(deleteProductAction(nextProducts));
+      });
+  };
+};
 
 // 商品一覧取得
 export const fetchProducts = () => {

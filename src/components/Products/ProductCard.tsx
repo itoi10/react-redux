@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Card, CardContent, CardMedia, Typography } from "@material-ui/core";
+import { Card, CardContent, CardMedia, Typography, Menu, MenuItem, IconButton } from "@material-ui/core";
 import NoImage from "../../assets/img/src/no_image.png";
 import { push } from "connected-react-router";
 import { useDispatch } from "react-redux";
+import { MoreVert } from "@material-ui/icons";
+import { deleteProduct } from "../../reducks/products/operations";
 
 interface Props {
   id: number;
@@ -47,6 +49,15 @@ const ProductCard: React.FC<Props> = (props) => {
   const price = props.price.toLocaleString();
   const images = props.images.length > 0 ? props.images : [{ path: NoImage }];
 
+  // 編集削除モーダル開閉
+  const [anchorEl, setAnchorEl] = useState<Element | null>(null);
+  const handleClick = (e: React.MouseEvent<any>) => {
+    setAnchorEl(e.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <Card className={classes.root}>
       <CardMedia
@@ -64,6 +75,27 @@ const ProductCard: React.FC<Props> = (props) => {
             ¥{price}
           </Typography>
         </div>
+        <IconButton onClick={handleClick}>
+          <MoreVert />
+        </IconButton>
+        <Menu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
+          <MenuItem
+            onClick={() => {
+              dispatch(push("/product/edit/" + props.id));
+              handleClose();
+            }}
+          >
+            編集する
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              dispatch(deleteProduct(props.id));
+              handleClose();
+            }}
+          >
+            削除する
+          </MenuItem>
+        </Menu>
       </CardContent>
     </Card>
   );
