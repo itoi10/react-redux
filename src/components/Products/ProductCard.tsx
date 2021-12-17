@@ -2,6 +2,8 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Card, CardContent, CardMedia, Typography } from "@material-ui/core";
 import NoImage from "../../assets/img/src/no_image.png";
+import { push } from "connected-react-router";
+import { useDispatch } from "react-redux";
 
 interface Props {
   id: number;
@@ -41,14 +43,20 @@ const useStyles = makeStyles((theme) => ({
 
 const ProductCard: React.FC<Props> = (props) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const price = props.price.toLocaleString();
   const images = props.images.length > 0 ? props.images : [{ path: NoImage }];
 
   return (
     <Card className={classes.root}>
-      <CardMedia className={classes.media} image={images[0].path} />
+      <CardMedia
+        className={classes.media}
+        image={images[0].path}
+        title=""
+        onClick={() => dispatch(push("/product/" + props.id))}
+      />
       <CardContent className={classes.content}>
-        <div>
+        <div onClick={() => dispatch(push("/product/" + props.id))}>
           <Typography color="textSecondary" component="p">
             {props.name}
           </Typography>
