@@ -22,7 +22,13 @@ const ProductList: React.FC<Props> = () => {
       <div className="flex flex-row flex-wrap">
         {products.length > 0 &&
           products.map((product: any) => (
-            <ProductCard key={product.id} name={product.name} price={product.price} images={product.images} />
+            <ProductCard
+              key={product.id}
+              id={product.id}
+              name={product.name}
+              price={product.price}
+              images={product.images}
+            />
           ))}
       </div>
     </section>
