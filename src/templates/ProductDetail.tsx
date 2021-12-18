@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { firestore } from "../firebase";
 import { makeStyles } from "@material-ui/core";
 import HTMLReactParser from "html-react-parser";
-import { ImageSwiper } from "../components/Products";
+import { ImageSwiper, SizeTable } from "../components/Products";
 
 const useStyles = makeStyles((theme) => ({
   sliderBox: {
@@ -44,6 +44,7 @@ const returnCodeToBr = (text: string) => {
   return HTMLReactParser(text.replace(/\r?\n/g, "<br/>"));
 };
 
+// 商品詳細ページ
 const ProductDetail: React.FC = () => {
   const classes = useStyles();
   const selector = useSelector((state: any) => state);
@@ -68,14 +69,21 @@ const ProductDetail: React.FC = () => {
     <section className="mx-0 my-auto relative py-0 px-4 text-center w-full max-w-xl lg:max-w-5xl">
       {product && (
         <div className="flex flex-row flex-wrap">
+          {/* 商品画像 */}
           <div className={classes.sliderBox}>
             <ImageSwiper images={product.images} />
           </div>
+          {/* 商品情報 */}
           <div className={classes.detail}>
+            {/* 商品名 */}
             <h2 className="text-black text-2xl text-center mx-auto mb-4">{product.name}</h2>
-            <p className={classes.price}>{product.price.toLocaleString()}</p>
+            {/* 価格 */}
+            <p className={classes.price}>￥{product.price.toLocaleString()}</p>
             <div className="h-5" />
+            {/* サイズ一覧 */}
+            <SizeTable sizes={product.sizes} />
             <div className="h-5" />
+            {/* 説明 */}
             <p>{returnCodeToBr(product.description)}</p>
           </div>
         </div>
