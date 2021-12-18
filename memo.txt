@@ -87,3 +87,17 @@ https://nerdcave.com/tailwind-cheat-sheet
 smは600px
 dowmなら未満, upなら以上で適用
 theme.breakpoints.down('sm')
+
+
+# TSでのmakeStyles書き方
+https://zenn.dev/osd/articles/520ee40dda0402
+
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+
+const useStyles = makeStyles((theme:Theme) =>
+  createStyles({
+    root: {
+      flexGrow: 1,
+    },
+  })
+)
