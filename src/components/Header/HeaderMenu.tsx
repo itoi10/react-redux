@@ -3,7 +3,11 @@ import { IconButton } from "@material-ui/core";
 import { Badge } from "@material-ui/core";
 import { Menu, ShoppingCart, FavoriteBorder } from "@material-ui/icons";
 
-const HeaderMenus: React.FC = () => {
+interface Props {
+  handleDrawerToggle: any;
+}
+
+const HeaderMenus: React.FC<Props> = (props) => {
   return (
     <>
       <IconButton>
@@ -14,7 +18,7 @@ const HeaderMenus: React.FC = () => {
       <IconButton>
         <FavoriteBorder />
       </IconButton>
-      <IconButton>
+      <IconButton onClick={(e) => props.handleDrawerToggle(e)}>
         <Menu />
       </IconButton>
     </>
