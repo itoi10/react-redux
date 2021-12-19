@@ -7,6 +7,7 @@ import { getProducts } from "../../reducks/products/selectors";
 import { getUserId, getProductsInCart } from "../../reducks/users/selectors";
 import { firestore } from "../../firebase";
 import { fetchProductsInCart } from "../../reducks/users/operations";
+import { push } from "connected-react-router";
 
 interface Props {
   handleDrawerToggle: any;
@@ -52,7 +53,7 @@ const HeaderMenus: React.FC<Props> = (props) => {
 
   return (
     <>
-      <IconButton>
+      <IconButton onClick={() => dispatch(push("/cart"))}>
         <Badge badgeContent={ProductsInCart.length} color="secondary">
           <ShoppingCart />
         </Badge>
