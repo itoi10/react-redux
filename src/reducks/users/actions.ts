@@ -1,5 +1,13 @@
 import { UserState } from "./types";
 
+export const FETCH_PRODUCTS_IN_CART = "FETCH_PRODUCTS_IN_CART";
+export const fetchProductsInCartAction = (products: any) => {
+  return {
+    type: FETCH_PRODUCTS_IN_CART,
+    payload: products,
+  };
+};
+
 // アプリから受け取ったデータをreducersに渡す
 export const SIGN_IN = "SIGN_IN";
 export const signInAction = (userState: { uid: string; username: string; role: string }) => {

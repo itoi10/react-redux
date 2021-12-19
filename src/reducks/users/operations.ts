@@ -1,7 +1,24 @@
-import { signInAction, signOutAction } from "./actions";
+import { signInAction, signOutAction, fetchProductsInCartAction } from "./actions";
 import { push } from "connected-react-router";
 import { firebaseAuth, FirebaseTimestamp, firestore } from "../../firebase/index";
 import { UserState } from "./types";
+
+// 買い物カートに商品を追加
+export const addProductToCart = (addedProduct: any) => {
+  return async (dispatch: any, getState: any) => {
+    const uid = getState().users.uid as string;
+    const cartRef = firestore.collection("users").doc(uid).collection("cart").doc();
+    addedProduct["cartId"] = cartRef.id;
+    await cartRef.set(addedProduct);
+    dispatch(push("/"));
+  };
+};
+
+export const fetchProductsInCart = (products: any) => {
+  return (dispatch: any) => {
+    dispatch(fetchProductsInCartAction(products));
+  };
+};
 
 // 認証リッスン
 export const listenAuthState = () => {

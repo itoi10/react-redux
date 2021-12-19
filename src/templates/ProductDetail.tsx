@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { useSelector } from "react-redux";
-import { firestore } from "../firebase";
+import { useSelector, useDispatch } from "react-redux";
+import { FirebaseTimestamp, firestore } from "../firebase";
 import { makeStyles } from "@material-ui/core";
 import HTMLReactParser from "html-react-parser";
 import { ImageSwiper, SizeTable } from "../components/Products";
+import { addProductToCart } from "../reducks/users/operations";
 
 const useStyles = makeStyles((theme) => ({
   sliderBox: {
@@ -47,6 +48,7 @@ const returnCodeToBr = (text: string) => {
 // 商品詳細ページ
 const ProductDetail: React.FC = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const selector = useSelector((state: any) => state);
   const path: string = selector.router.location.pathname;
   const id = path.split("/product/")[1];
@@ -65,6 +67,25 @@ const ProductDetail: React.FC = () => {
       });
   }, []);
 
+  const addProduct = useCallback(
+    (selectedSize: string) => {
+      const timestamp = FirebaseTimestamp.now();
+      dispatch(
+        addProductToCart({
+          added_at: timestamp,
+          description: product.description,
+          gender: product.gender,
+          images: product.images,
+          price: product.price,
+          productId: product.id,
+          quantity: 1,
+          size: selectedSize,
+        })
+      );
+    },
+    [product]
+  );
+
   return (
     <section className="mx-0 my-auto relative py-0 px-4 text-center w-full max-w-xl lg:max-w-5xl">
       {product && (
@@ -81,7 +102,7 @@ const ProductDetail: React.FC = () => {
             <p className={classes.price}>￥{product.price.toLocaleString()}</p>
             <div className="h-5" />
             {/* サイズ一覧 */}
-            <SizeTable sizes={product.sizes} />
+            <SizeTable sizes={product.sizes} addProduct={addProduct} />
             <div className="h-5" />
             {/* 説明 */}
             <p>{returnCodeToBr(product.description)}</p>

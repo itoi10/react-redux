@@ -5,6 +5,7 @@ import { FavoriteBorder, ShoppingCart } from "@material-ui/icons";
 
 interface Props {
   sizes: { quantity: string; size: string }[];
+  addProduct: (size: string) => void;
 }
 
 const useStyle = makeStyles({
@@ -34,7 +35,7 @@ const SizeTable: React.FC<Props> = (props) => {
                 {/* 注文ボタン */}
                 <TableCell className={classes.iconCell}>
                   {parseInt(size.quantity) > 0 ? (
-                    <IconButton>
+                    <IconButton onClick={() => props.addProduct(size.size)}>
                       <ShoppingCart />
                     </IconButton>
                   ) : (
