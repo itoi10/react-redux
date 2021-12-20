@@ -5,6 +5,7 @@ import { Delete } from "@material-ui/icons";
 import { useSelector } from "react-redux";
 import { getUserId } from "../../reducks/users/selectors";
 import { firestore } from "../../firebase";
+import NoImage from "../../assets/img/src/no_image.png";
 
 interface Props {
   product: any;
@@ -31,8 +32,7 @@ const CartListItem: React.FC<Props> = (props) => {
   const classes = useStyles();
   const selector = useSelector((state: any) => state);
   const uid = getUserId(selector);
-
-  const image = props.product.images[0].path;
+  const image = props.product.images.length > 0 ? props.product.images[0].path : NoImage;
   const price = props.product.price.toLocaleString();
   const name = props.product.name;
   const size = props.product.size;
