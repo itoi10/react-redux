@@ -3,5 +3,6 @@ export interface UserState {
   role: string;
   uid: string;
   username: string;
-  cart: any;
+  cart: any[];
+  orders: any[];
 }

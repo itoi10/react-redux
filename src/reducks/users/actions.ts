@@ -1,5 +1,13 @@
 import { UserState } from "./types";
 
+export const FETCH_ORDER_HISTORY = "FETCH_ORDER_HISTORY";
+export const fetchOrderHistoryAction = (history: any) => {
+  return {
+    type: FETCH_ORDER_HISTORY,
+    payload: history,
+  };
+};
+
 export const FETCH_PRODUCTS_IN_CART = "FETCH_PRODUCTS_IN_CART";
 export const fetchProductsInCartAction = (products: any) => {
   return {

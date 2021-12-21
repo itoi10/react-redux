@@ -3,6 +3,7 @@ const initialState = {
   // userの状態
   users: {
     cart: [],
+    orders: [],
     isSignedIn: false,
     role: "",
     uid: "",

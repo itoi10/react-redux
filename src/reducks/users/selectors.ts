@@ -10,3 +10,5 @@ export const getUsername = createSelector([userSelector], (state) => state.usern
 export const getIsSignedIn = createSelector([userSelector], (state) => state.isSignedIn);
 
 export const getProductsInCart = createSelector([userSelector], (state) => state.cart);
+
+export const getOrderHistory = createSelector([userSelector], (state) => state.orders);

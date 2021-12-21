@@ -6,6 +6,12 @@ import { UserState } from "./types";
 export const UsersReducer = (state = initialState.users, action: { type: string; payload: any }) => {
   // Actionsのtypeに応じてstate変更
   switch (action.type) {
+    case Actions.FETCH_ORDER_HISTORY:
+      return {
+        ...state,
+        orders: [...action.payload],
+      };
+
     case Actions.FETCH_PRODUCTS_IN_CART:
       return {
         ...state,
@@ -19,6 +25,7 @@ export const UsersReducer = (state = initialState.users, action: { type: string;
       };
 
     case Actions.SIGN_OUT:
+      // サインアウトするので情報の残さない(...stateは不要)
       return {
         ...action.payload,
       };

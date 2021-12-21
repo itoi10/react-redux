@@ -1,4 +1,4 @@
-import { signInAction, signOutAction, fetchProductsInCartAction } from "./actions";
+import { signInAction, signOutAction, fetchProductsInCartAction, fetchOrderHistoryAction } from "./actions";
 import { push } from "connected-react-router";
 import { firebaseAuth, FirebaseTimestamp, firestore } from "../../firebase/index";
 import { UserState } from "./types";
@@ -11,6 +11,28 @@ export const addProductToCart = (addedProduct: any) => {
     addedProduct["cartId"] = cartRef.id;
     await cartRef.set(addedProduct);
     dispatch(push("/"));
+  };
+};
+
+// 注文履歴取得
+export const fetchOrderHistory = () => {
+  return async (dispatch: any, getState: any) => {
+    const uid = getState().users.uid;
+    const list: any[] = [];
+
+    firestore
+      .collection("users")
+      .doc(uid)
+      .collection("orders")
+      .orderBy("updated_at", "desc")
+      .get()
+      .then((snapshots) => {
+        snapshots.forEach((snapshot) => {
+          const data = snapshot.data();
+          list.push(data);
+        });
+        dispatch(fetchOrderHistoryAction(list));
+      });
   };
 };
 
