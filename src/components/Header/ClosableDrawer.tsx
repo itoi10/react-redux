@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { Divider, Drawer, List, ListItem, ListItemIcon, ListItemText, IconButton } from "@material-ui/core";
 import { Search, AddCircle, History, Person, ExitToApp } from "@material-ui/icons";
@@ -6,6 +6,7 @@ import { TextInput } from "../UIkit";
 import { useDispatch } from "react-redux";
 import { push } from "connected-react-router";
 import { signOut } from "../../reducks/users/operations";
+import { firestore } from "../../firebase";
 
 interface Props {
   open: boolean;
@@ -55,6 +56,32 @@ const ClosableDrawer: React.FC<Props> = (props) => {
     { func: selectMenu, label: "プロフィール", icon: <Person />, id: "profile", path: "/profile" },
   ];
 
+  const [filters, setFilters] = useState([
+    { func: selectMenu, label: "すべて", id: "all", path: "/" },
+    { func: selectMenu, label: "メンズ", id: "male", path: "/?gender=male" },
+    { func: selectMenu, label: "レディース", id: "female", path: "/?gender=female" },
+  ]);
+
+  useEffect(() => {
+    firestore
+      .collection("categories")
+      .orderBy("order", "asc")
+      .get()
+      .then((snapshots) => {
+        const categoryList: any[] = [];
+        snapshots.forEach((snapshot) => {
+          const category = snapshot.data();
+          categoryList.push({
+            func: selectMenu,
+            label: category.name,
+            id: category.id,
+            path: `/?category=${category.id}`,
+          });
+        });
+        setFilters((prevState) => [...prevState, ...categoryList]);
+      });
+  }, []);
+
   return (
     <nav className={classes.drawer}>
       {/* Drawer, https://mui.com/components/drawers/ */}
@@ -97,6 +124,17 @@ const ClosableDrawer: React.FC<Props> = (props) => {
               </ListItemIcon>
               <ListItemText primary={"logout"} />
             </ListItem>
+          </List>
+          <Divider />
+          <List>
+            <ListItem>
+              <ListItemText primary="カテゴリー" />
+            </ListItem>
+            {filters.map((filter) => (
+              <ListItem button key={filter.id} onClick={(e) => filter.func(e, filter.path)}>
+                <ListItemText primary={filter.label} />
+              </ListItem>
+            ))}
           </List>
         </div>
       </Drawer>
