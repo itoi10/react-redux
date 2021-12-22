@@ -101,3 +101,6 @@ const useStyles = makeStyles((theme:Theme) =>
     },
   })
 )
+
+# firebase index
+firebase deploy --only firestore:indexes

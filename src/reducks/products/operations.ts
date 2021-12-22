@@ -19,20 +19,30 @@ export const deleteProduct = (id: number | string) => {
   };
 };
 
-// 商品一覧取得
-export const fetchProducts = () => {
+/**
+ * 商品情報取得
+ * 引数を指定した場合はその条件にあるもののみ取得する
+ * @param gender "" or "all" or "male" or "female"
+ * @param category "" or カテゴリー
+ * @returns
+ */
+export const fetchProducts = (gender: string, category: string) => {
   return async (dispatch: any) => {
-    productsRef
-      .orderBy("updated_at", "desc")
-      .get()
-      .then((snapshots) => {
-        const productList: any = [];
-        snapshots.forEach((snapshot) => {
-          const product = snapshot.data();
-          productList.push(product);
-        });
-        dispatch(fetchProductsAction(productList));
+    let query = productsRef.orderBy("updated_at", "desc");
+    console.log("gen " + gender);
+    console.log("cat " + category);
+    // 検索条件指定
+    query = gender !== "" ? query.where("gender", "==", gender) : query;
+    query = category !== "" ? query.where("category", "==", category) : query;
+
+    query.get().then((snapshots) => {
+      const productList: any = [];
+      snapshots.forEach((snapshot) => {
+        const product = snapshot.data();
+        productList.push(product);
       });
+      dispatch(fetchProductsAction(productList));
+    });
   };
 };
 
