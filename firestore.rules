@@ -25,6 +25,12 @@ service cloud.firestore {
       allow read: if request.auth.uid != null;
       allow write: if request.auth.uid != null;
     }
+
+    match /categories/{categoryId} {
+      // ログインできていればカテゴリ一覧参照可能
+      allow read: if request.auth.uid != null;
+      // allow write: if request.auth.uid != null;
+    }
   }
 }
 

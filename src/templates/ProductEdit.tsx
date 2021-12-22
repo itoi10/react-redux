@@ -17,6 +17,7 @@ const ProductEdit: React.FC = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
+  const [categories, setCategories] = useState<{ id: string; name: string }[]>([]);
   const [gender, setGender] = useState("");
   const [price, setPrice] = useState("");
   const [images, setImages] = useState<{ id: string; path: string }[]>([]);
@@ -43,12 +44,6 @@ const ProductEdit: React.FC = () => {
     [setPrice]
   );
 
-  const category_list = [
-    { id: "tops", name: "トップス" },
-    { id: "shirts", name: "シャツ" },
-    { id: "pants", name: "パンツ" },
-  ];
-
   const gender_list = [
     { id: "all", name: "すべて" },
     { id: "male", name: "メンズ" },
@@ -74,6 +69,24 @@ const ProductEdit: React.FC = () => {
         });
     }
   }, [id]);
+
+  useEffect(() => {
+    firestore
+      .collection("categories")
+      .orderBy("order", "asc")
+      .get()
+      .then((snapshots) => {
+        const list: { id: string; name: string }[] = [];
+        snapshots.forEach((snapshot) => {
+          const data = snapshot.data();
+          list.push({
+            id: data.id,
+            name: data.name,
+          });
+        });
+        setCategories(list);
+      });
+  }, []);
 
   return (
     <section>
@@ -106,7 +119,7 @@ const ProductEdit: React.FC = () => {
         />
 
         {/* カテゴリー */}
-        <SelectBox label={"カテゴリー"} required={true} select={setCategory} value={category} options={category_list} />
+        <SelectBox label={"カテゴリー"} required={true} select={setCategory} value={category} options={categories} />
 
         {/* 性別 */}
         <SelectBox label={"性別"} required={true} select={setGender} value={gender} options={gender_list} />
